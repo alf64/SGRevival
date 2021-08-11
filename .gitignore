@@ -1,3 +1,19 @@
+# Eclipse specifics #
+###################
+*.cproject
+*.project
+*Release
+*Debug
+*.settings
+*.metadata
+*.mxproject
+*.launch
+*.cfg
+
+# OS specifics #
+###################
+*Thumbs.db
+
 # Prerequisites
 *.d
 
