@@ -100,7 +100,7 @@ void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t Sub
   */
 hal_status_t HAL_InitTick(void)
 {
-    // number of ticks needed for System Timer interrupt to occur. For SystemCoreClock=16Mhz, ticks_interval==16000
+    // number of ticks needed for System Timer interrupt to occur every 1ms. For SystemCoreClock=16Mhz, ticks_interval==16000
     uint32_t ticks_interval = ((uint32_t)(SystemCoreClock / (uint32_t)(1000 / uwTickFreq)));
 
     // configure System Timer (enables System Timer Interrupt and sets some interrupt priority)
