@@ -1,7 +1,7 @@
 /*
  * flash.h
  *
- *  Created on: 15 paź 2021
+ *  Created on: 15 Oct 2021
  *      Author: alf64
  *
  * Provides functionality for Embedded FLASH memory interface.

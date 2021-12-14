@@ -1,7 +1,7 @@
 /*
  * system_ctrl.c
  *
- *  Created on: 14 gru 2021
+ *  Created on: 14 Dec 2021
  *      Author: alf64
  */
 

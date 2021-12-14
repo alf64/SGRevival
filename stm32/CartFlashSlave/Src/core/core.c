@@ -1,7 +1,7 @@
 /*
  * core.c
  *
- *  Created on: 25 paź 2021
+ *  Created on: 25 Oct 2021
  *      Author: alf64
  */
 

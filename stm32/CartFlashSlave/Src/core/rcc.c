@@ -1,7 +1,7 @@
 /*
  * rcc.c
  *
- *  Created on: 18 paź 2021
+ *  Created on: 18 Oct 2021
  *      Author: alf64
  */
 

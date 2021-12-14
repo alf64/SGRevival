@@ -3,7 +3,7 @@
  *
  * File contains error codes and useful defines and typedefs.
  *
- *  Created on: 18 paź 2021
+ *  Created on: 18 Oct 2021
  *      Author: alf64
  */
 

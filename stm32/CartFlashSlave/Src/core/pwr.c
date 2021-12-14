@@ -1,7 +1,7 @@
 /*
  * pwr.c
  *
- *  Created on: 27 paź 2021
+ *  Created on: 27 Oct 2021
  *      Author: alf64
  */
 

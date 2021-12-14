@@ -1,7 +1,7 @@
 /*
  * pwr.h
  *
- *  Created on: 27 paź 2021
+ *  Created on: 27 Oct 2021
  *      Author: alf64
  *
  * This file provides functions for Power Controller (PWR).
