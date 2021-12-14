@@ -21,16 +21,15 @@
  ****************************************************************************** */
 
 #include <stdint.h>
-#include "stm32f401vctx/stm32f401xx_hal.h"
-#include "stm32f401vctx/stm32f4xx_hal_rcc.h"
-#include "stm32f401vctx/system_stm32f4xx.h"
-#include "core/gpio.h"
+#include <system_ctrl.h>
 
 int main(void)
 {
-    HAL_InitHW();
-    SystemClock_Config();
-    MX_GPIO_Init();
+    SystemInit();
+    SystemClockCfg();
+
     /* Loop forever */
 	for(;;);
+
+	return 0;
 }

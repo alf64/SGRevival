@@ -13,6 +13,9 @@
 /* Includes */
 #include <errno.h>
 #include <stdint.h>
+#include <system_ctrl.h>
+
+#if defined(SYSTEM_CTRL_ENABLE_SBRK) && (SYSTEM_CTRL_ENABLE_SBRK == 1)
 
 /**
  * Pointer to the current high watermark of the heap usage
@@ -67,3 +70,5 @@ void *_sbrk(ptrdiff_t incr)
 
   return (void *)prev_heap_end;
 }
+
+#endif

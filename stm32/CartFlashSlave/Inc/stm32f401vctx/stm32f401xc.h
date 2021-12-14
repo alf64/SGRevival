@@ -104,7 +104,6 @@ typedef enum
 /* Cortex-M4 processor and core peripherals
  *  (NVIC, SysTick, registers defines specific to m4 core) */
 #include "core_cm4.h"
-#include "system_stm32f4xx.h"
 #include <stdint.h>
 
 /** @addtogroup Peripheral_registers_structures

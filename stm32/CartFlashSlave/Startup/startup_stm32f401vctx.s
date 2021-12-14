@@ -116,6 +116,22 @@ Infinite_Loop:
   .type g_pfnVectors, %object
   .size g_pfnVectors, .-g_pfnVectors
 
+/*
+* vector[0], _estack, is the initialization value for the stack pointer.
+* vector[1] is Reset. This is exception1. It has the highest priority
+* that is not changeable via SHPR registers.
+* vector[2] is Non Maskable Interrupt (NMI) . This is exception2. Priority is also not changeable.
+* vector[3] is hard Fault. This is exception3. Priority is also not changeable.
+* The order of the exceptions in this vector table is also their priority.
+* The lower the index (i.e. Reset is 1) the higher the priority.
+* Exceptions other than Reset, NMI and HardFault can have different priority,
+* changeable via SHPR registers.
+* External Interrupts (lines specfific for the device, outside of the ARM core)
+* can also have different priority, changeable via IPR registers.
+* If exceptions or interrupts have the same priority assigned in such registers
+* (SHPR or IPR), then the execution priority is decided based on the position
+* in this table.
+*/
 g_pfnVectors:
  /* Specific Cortex M4 Interrupts / Vectors */
   .word _estack
