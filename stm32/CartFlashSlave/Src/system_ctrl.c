@@ -99,12 +99,61 @@ void SystemClockCfg(void)
 
 void SystemInitHW(void)
 {
+    // init flash resources
     flash_icache_enable();
     flash_dcache_enable();
     flash_prefetch_enable();
 
+    // set nvic priority grouping
     core_nvic_set_priogrp(CORE_NVIC_PRIOGRP_2_2);
 
+    // enable clocks for used modules
     rcc_syscfg_clk_enable();
     rcc_pwr_clk_enable();
+    rcc_gpio_clk_enable(GPIO_PORT_D);
+}
+
+void SystemInitGPIO(void)
+{
+    core_ec_t ec = CORE_EC_FAILED;
+
+    gpio_pins_t pins_to_cfg = {0};
+    pins_to_cfg.pins.pin12 = 1; // green LED
+    pins_to_cfg.pins.pin13 = 1; // orange LED
+    pins_to_cfg.pins.pin14 = 1; // red LED
+    pins_to_cfg.pins.pin15 = 1; // blue LED
+    ec = gpio_set_mode(
+            GPIO_PORT_D,
+            pins_to_cfg,
+            GPIO_MODE_OUTPUT);
+    HALT_ON_ERROR(ec);
+
+    ec = gpio_set_out_type(
+            GPIO_PORT_D,
+            pins_to_cfg,
+            GPIO_OTYPE_PUSH_PULL);
+    HALT_ON_ERROR(ec);
+
+    ec = gpio_set_out_speed(
+            GPIO_PORT_D,
+            pins_to_cfg,
+            GPIO_OSPEED_LOW);
+    HALT_ON_ERROR(ec);
+
+    ec = gpio_set_pull_type(
+            GPIO_PORT_D,
+            pins_to_cfg,
+            GPIO_PTYPE_NO_PULL);
+    HALT_ON_ERROR(ec);
+
+    // power on the green LED (PD12)
+    pins_to_cfg.value = 0;
+    pins_to_cfg.pins.pin12 = 1;
+    gpio_pins_t pins_data = {0};
+    pins_data.pins.pin12 = 1;
+    ec = gpio_set_data(
+            GPIO_PORT_D,
+            pins_to_cfg,
+            pins_data);
+    HALT_ON_ERROR(ec);
 }

@@ -11,6 +11,7 @@
 #define CORE_RCC_H_
 
 #include <core/ec.h>
+#include <core/gpio.h>
 
 #ifdef __cplusplus
  extern "C" {
@@ -111,6 +112,24 @@ void rcc_pwr_clk_enable(void);
 
 //!< Disables clock for Power Controller
 void rcc_pwr_clk_disable(void);
+
+/*
+ * @brief Enables clock for selected GPIO port.
+ * @param gpio A port for which the clock shall be enabled.
+ * @returns core_ec_t
+ * @retval CORE_EC_SUCCESS Succeeded to enable clock for GPIO port.
+ * @retval CORE_EC_FAILED Failed to enable clock for GPIO port.
+ */
+core_ec_t rcc_gpio_clk_enable(gpio_port_t gpio_port);
+
+/*
+ * @brief Disables clock for selected GPIO port.
+ * @param gpio A port for which the clock shall be disabled.
+ * @returns core_ec_t
+ * @retval CORE_EC_SUCCESS Succeeded to disable clock for GPIO port.
+ * @retval CORE_EC_FAILED Failed to disable clock for GPIO port.
+ */
+core_ec_t rcc_gpio_clk_disable(gpio_port_t gpio_port);
 
 /*
  * @brief Sets the High Speed External oscillator (HSE) to given state.

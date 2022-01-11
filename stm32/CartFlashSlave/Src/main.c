@@ -26,7 +26,9 @@
 int main(void)
 {
     SystemInit();
+    SystemInitHW();
     SystemClockCfg();
+    SystemInitGPIO();
 
     /* Loop forever */
 	for(;;);

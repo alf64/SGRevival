@@ -1166,6 +1166,104 @@ void rcc_pwr_clk_disable(void)
     while(apb1enr.bits.pwren);
 }
 
+/*
+ * @brief Enables/Disables the clock for GPIO port.
+ * @param gpio A port for which the clock shall be enabled/disabled.
+ * @param endis A switch that tells if the clock should be enabled (1) or disabled (0).
+ * This param should be either 1 or 0.
+ * @returns core_ec_t
+ * @retval CORE_EC_SUCCESS Succeeded to enable/disable clock for GPIO port.
+ * @retval CORE_EC_FAILED Failed to enable/disable clock for GPIO port.
+ */
+static inline core_ec_t rcc_gpio_clk_endis(gpio_port_t gpio, bool endis)
+{
+    core_ec_t ec = CORE_EC_FAILED;
+
+    volatile rcc_regs_t* rcc_regs = rcc_get_regs();
+    rcc_reg_ahb1enr_t ahb1enr = rcc_regs->RCC_AHB1ENR;
+
+    if(endis > 1)
+    {
+        return CORE_EC_FAILED;
+    }
+
+    switch(gpio)
+    {
+        case GPIO_PORT_A:
+        {
+            ahb1enr.bits.gpioaen = (uint8_t)(endis & 0x1);
+
+            ec = CORE_EC_SUCCESS;
+            break;
+        }
+        case GPIO_PORT_B:
+        {
+            ahb1enr.bits.gpioben = (uint8_t)(endis & 0x1);;
+
+            ec = CORE_EC_SUCCESS;
+            break;
+        }
+        case GPIO_PORT_C:
+        {
+            ahb1enr.bits.gpiocen = (uint8_t)(endis & 0x1);;
+
+            ec = CORE_EC_SUCCESS;
+            break;
+        }
+        case GPIO_PORT_D:
+        {
+            ahb1enr.bits.gpioden = (uint8_t)(endis & 0x1);;
+
+            ec = CORE_EC_SUCCESS;
+            break;
+        }
+        case GPIO_PORT_E:
+        {
+            ahb1enr.bits.gpioeen = (uint8_t)(endis & 0x1);;
+
+            ec = CORE_EC_SUCCESS;
+            break;
+        }
+        case GPIO_PORT_H:
+        {
+            ahb1enr.bits.gpiohen = (uint8_t)(endis & 0x1);;
+
+            ec = CORE_EC_SUCCESS;
+            break;
+        }
+        default:
+        {
+            ec = CORE_EC_FAILED;
+            break;
+        }
+    }
+
+    if(ec != CORE_EC_SUCCESS)
+    {
+        return ec;
+    }
+
+    rcc_regs->RCC_AHB1ENR = ahb1enr;
+    rcc_reg_ahb1enr_t ahb1enr_read;
+    ahb1enr_read.value = 0xFFFFFFFF;
+    do
+    {
+        ahb1enr_read = rcc_regs->RCC_AHB1ENR;
+    }while(ahb1enr_read.value != ahb1enr.value);
+
+    return ec;
+}
+
+core_ec_t rcc_gpio_clk_enable(gpio_port_t gpio_port)
+{
+    return rcc_gpio_clk_endis(gpio_port, 1);
+}
+
+core_ec_t rcc_gpio_clk_disable(gpio_port_t gpio_port)
+{
+    return rcc_gpio_clk_endis(gpio_port, 0);
+}
+
 bool rcc_is_main_pll_on(void)
 {
     volatile rcc_regs_t* rcc_regs = rcc_get_regs();

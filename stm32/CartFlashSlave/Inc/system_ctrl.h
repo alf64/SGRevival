@@ -26,8 +26,11 @@ void SystemInit(void);
 //!< Configures clocks for the system.
 void SystemClockCfg(void);
 
-//!< Initializes hardware for the system.
+//!< Initializes main hardware for the system.
 void SystemInitHW(void);
+
+//!< Initializes GPIO for the system.
+void SystemInitGPIO(void);
 
 
 #ifdef __cplusplus

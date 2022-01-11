@@ -65,6 +65,14 @@
 #define CONCATENATE(a, b) CONCS(a, b)
 #endif
 
+#ifndef NULL
+#ifdef __cplusplus
+#define NULL 0
+#else
+#define NULL ((void *) 0)
+#endif
+#endif
+
 
 //!< Error codes for core stm32 functionality.
 typedef enum
@@ -82,6 +90,48 @@ typedef enum
 #endif
 
 typedef uint8_t bool;
+
+#define HALT_ON_ERROR(ec)                   \
+    if ((ec) != CORE_EC_SUCCESS)            \
+    {                                       \
+        while(1){};                         \
+    }
+
+#define RETURN_EC_ON_ERROR(ec)              \
+    if ((ec) != CORE_EC_SUCCESS)            \
+    {                                       \
+        return (ec);                        \
+    }
+
+#define RETURN_VOID_ON_ERROR(ec)            \
+    if ((ec) != CORE_EC_SUCCESS)            \
+    {                                       \
+        return;                             \
+    }
+
+#define BREAK_ON_ERROR(ec)                  \
+    if ((ec) != CORE_EC_SUCCESS)            \
+    {                                       \
+        break;                              \
+    }
+
+#define RETURN_VOID_ON_FAIL(condition)      \
+    if (!(condition))                       \
+    {                                       \
+        return;                             \
+    }
+
+#define RETURN_VAL_ON_FAIL(condition, val)  \
+    if (!(condition))                       \
+    {                                       \
+        return val;                         \
+    }
+
+#define RETURN_NULL_ON_FAIL(condition, val)     \
+    if (!(condition))                           \
+    {                                           \
+        return NULL;                             \
+    }
 
 
 #endif /* CORE_EC_H_ */
